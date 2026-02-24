@@ -54,8 +54,9 @@ export default function Login() {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Entrar</Text>
-        <Text style={styles.subtitle}>Bem-vindo 👋</Text>
+        <Text style={styles.title}>Nome do App</Text>
+        <Text style={styles.subtitle}>Criar uma conta</Text>
+        <Text style={styles.text}>Insira seu e-mail para se cadastrar neste aplicativo</Text>
 
         <View style={styles.card}>
           <Text style={styles.label}>Email</Text>
@@ -91,7 +92,7 @@ export default function Login() {
         </View>
 
         <Text style={styles.footer}>
-          Dica: email válido + password com 6+ caracteres.
+          Ao clicar em continuar, você concorda com os nossos Termos de Serviço e com a Política de Privacidade
         </Text>
       </View>
     </KeyboardAvoidingView>
@@ -99,9 +100,10 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", padding: 20, gap: 6, backgroundColor: "#ffffffff" },
-  title: { fontSize: 32, fontWeight: "800" },
-  subtitle: { fontSize: 16, opacity: 0.7, marginBottom: 18 },
+  container: { flex: 1, justifyContent: "center", padding: 20, gap: 6, backgroundColor: "#9D500C" },
+  title: { fontSize: 36, marginBottom: 60, fontWeight: "800", color: "#fff", textAlign: "center" },
+  subtitle: { fontSize: 16, color: "#fff", textAlign: "center", fontWeight: 600 },
+  text: { fontSize: 12, marginBottom: 18, color: "#000", textAlign: "center" },
 
   card: {
     borderWidth: 1,
@@ -136,5 +138,5 @@ const styles = StyleSheet.create({
   buttonText: { color: "#fff", fontSize: 16, fontWeight: "700" },
 
   link: { marginTop: 6, fontSize: 14, fontWeight: "600" },
-  footer: { marginTop: 18, fontSize: 12, opacity: 0.6, textAlign: "center" },
+  footer: { marginTop: 18, fontSize: 12, textAlign: "center", width: 327 },
 });
