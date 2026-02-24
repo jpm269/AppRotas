@@ -1,3 +1,5 @@
+import { loginRequest } from "@/src/auth/api";
+import { saveToken } from "@/src/auth/session";
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
 import {
@@ -14,6 +16,7 @@ import {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+   const [loading, setLoading] = useState(false);
 
   const emailOk = useMemo(() => {
     const e = email.trim().toLowerCase();
@@ -23,13 +26,26 @@ export default function Login() {
   const passwordOk = password.length >= 6;
   const canSubmit = emailOk && passwordOk;
 
-  function onSubmit() {
-    if (!canSubmit) {
+  async function onSubmit() {
+    if (!emailOk || !passwordOk) {
       Alert.alert("Erro", "Verifica o email e a password (mín. 6 caracteres).");
       return;
     }
 
-    router.replace("/(tabs)");
+    try {
+      setLoading(true);
+      const token = await loginRequest(email.trim(), password);
+      await saveToken(token);
+      router.replace("/(tabs)");
+    } catch (e: any) {
+      Alert.alert("Login falhou", e?.message ?? "Tenta novamente.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function onForgetPassword() {
+    Alert.alert("Recuperar", "Em breve 😄")
   }
 
   return (
@@ -65,14 +81,11 @@ export default function Login() {
             onSubmitEditing={onSubmit}
           />
 
-          <Pressable
-            onPress={onSubmit}
-            style={styles.button}
-          >
+          <Pressable onPress={onSubmit} style={styles.button}>
             <Text style={styles.buttonText}>Entrar</Text>
           </Pressable>
 
-          <Pressable onPress={() => Alert.alert("Recuperar", "Em breve 😄")}>
+          <Pressable onPress={onForgetPassword}>
             <Text style={styles.link}>Esqueci-me da password</Text>
           </Pressable>
         </View>
