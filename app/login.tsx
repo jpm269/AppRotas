@@ -29,7 +29,7 @@ export default function Login() {
       return;
     }
 
-    router.replace("/(tabs)"); // vai para as tabs
+    router.replace("/(tabs)");
   }
 
   return (
@@ -67,12 +67,7 @@ export default function Login() {
 
           <Pressable
             onPress={onSubmit}
-            disabled={!canSubmit}
-            style={({ pressed }) => [
-              styles.button,
-              !canSubmit && styles.buttonDisabled,
-              pressed && canSubmit && styles.buttonPressed,
-            ]}
+            style={styles.button}
           >
             <Text style={styles.buttonText}>Entrar</Text>
           </Pressable>
@@ -124,7 +119,6 @@ const styles = StyleSheet.create({
     borderColor: "#111",
     backgroundColor: "#111",
   },
-  buttonDisabled: { opacity: 0.4 },
   buttonPressed: { opacity: 0.85 },
   buttonText: { color: "#fff", fontSize: 16, fontWeight: "700" },
 
