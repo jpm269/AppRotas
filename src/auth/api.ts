@@ -1,7 +1,7 @@
 type LoginResponse = { token: string };
 
 export async function loginRequest(email: string, password: string) {
-  // Troca para o teu endpoint real:
+  // TODO meter nosso url da api 
   const url = "https://TEU_DOMINIO.com/api/login";
 
   const res = await fetch(url, {
@@ -10,7 +10,6 @@ export async function loginRequest(email: string, password: string) {
     body: JSON.stringify({ email, password }),
   });
 
-  // Se a API devolve erro:
   if (!res.ok) {
     let msg = "Credenciais inválidas";
     try {
