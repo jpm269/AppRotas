@@ -1,5 +1,3 @@
-import { loginRequest } from "@/src/auth/api";
-import { saveToken } from "@/src/auth/session";
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
 import {
@@ -27,21 +25,22 @@ export default function Login() {
   const canSubmit = emailOk && passwordOk;
 
   async function onSubmit() {
-    if (!emailOk || !passwordOk) {
-      Alert.alert("Erro", "Verifica o email e a password (mín. 6 caracteres).");
-      return;
-    }
+    // if (!emailOk || !passwordOk) {
+    //   Alert.alert("Erro", "Verifica o email e a password (mín. 6 caracteres).");
+    //   return;
+    // }
 
-    try {
-      setLoading(true);
-      const token = await loginRequest(email.trim(), password);
-      await saveToken(token);
-      router.replace("/(tabs)");
-    } catch (e: any) {
-      Alert.alert("Login falhou", e?.message ?? "Tenta novamente.");
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   setLoading(true);
+    //   const token = await loginRequest(email.trim(), password);
+    //   await saveToken(token);
+    //   router.replace("/(tabs)");
+    // } catch (e: any) {
+    //   Alert.alert("Login falhou", e?.message ?? "Tenta novamente.");
+    // } finally {
+    //   setLoading(false);
+    // }
+    router.replace("/(tabs)");
   }
 
   function onForgetPassword() {
@@ -63,7 +62,7 @@ export default function Login() {
           <TextInput
             value={email}
             onChangeText={setEmail}
-            placeholder="teuemail@exemplo.com"
+            placeholder="email@dominio.com"
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
