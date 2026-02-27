@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -18,6 +19,18 @@ export default function Home() {
           style={styles.input}
         />
       </View>
+      <MapView
+        style={StyleSheet.absoluteFill}
+        provider="google"
+        initialRegion={{
+          latitude: 38.7223,      // Lisboa
+          longitude: -9.1393,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }}
+      >
+        <Marker coordinate={{ latitude: 38.7223, longitude: -9.1393 }} title="Lisboa" />
+      </MapView>
     </View>
   );
 }
