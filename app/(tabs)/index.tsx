@@ -20,10 +20,10 @@ export default function Home() {
         />
       </View>
       <MapView
-        style={StyleSheet.absoluteFill}
+        style={styles.map}
         provider="google"
         initialRegion={{
-          latitude: 38.7223,      // Lisboa
+          latitude: 38.7223,
           longitude: -9.1393,
           latitudeDelta: 0.05,
           longitudeDelta: 0.05,
@@ -40,6 +40,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F0E8",
     padding: 20,
+  },
+  map: {
+    flex: 1
   },
   title: {
     fontSize: 28,
