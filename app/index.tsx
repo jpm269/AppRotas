@@ -1,6 +1,6 @@
 import { getToken } from "@/src/auth/session";
 import { Redirect } from "expo-router";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 export default function Index() {

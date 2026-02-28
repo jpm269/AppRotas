@@ -61,7 +61,6 @@ export default function TabLayout() {
   );
 }
 
-// ✅ Ícone com “badge”/realce quando está ativo (parecido à imagem)
 function TabIcon({
   focused,
   icon,

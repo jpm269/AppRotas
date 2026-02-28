@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -15,6 +15,13 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
    const [loading, setLoading] = useState(false);
+   const [mode, setMode] = useState<"login" | "signup">("signup");
+  const isSignup = mode === "signup";
+
+function toggleMode() {
+  setMode((m) => (m === "signup" ? "login" : "signup"));
+}
+
 
   const emailOk = useMemo(() => {
     const e = email.trim().toLowerCase();
@@ -54,8 +61,16 @@ export default function Login() {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Nome do App</Text>
-        <Text style={styles.subtitle}>Criar uma conta</Text>
-        <Text style={styles.text}>Insira seu e-mail para se cadastrar neste aplicativo</Text>
+
+        <Text style={styles.subtitle}>
+          {isSignup ? "Criar uma conta" : "Fazer login"}
+        </Text>
+
+        <Text style={styles.text}>
+          {isSignup
+            ? "Insira seu e-mail para se cadastrar neste aplicativo"
+            : "Entre com o seu e-mail e password para continuar"}
+        </Text>
 
         <View style={styles.card}>
           <Text style={styles.label}>Email</Text>
@@ -82,16 +97,35 @@ export default function Login() {
           />
 
           <Pressable onPress={onSubmit} style={styles.button}>
-            <Text style={styles.buttonText}>Entrar</Text>
+            <Text style={styles.buttonText}>
+              {isSignup ? "Criar conta" : "Entrar"}
+            </Text>
           </Pressable>
 
-          <Pressable onPress={onForgetPassword}>
-            <Text style={styles.link}>Esqueci-me da password</Text>
+          {/* Só faz sentido mostrar “esqueci password” no login */}
+          {!isSignup && (
+            <Pressable onPress={onForgetPassword}>
+              <Text style={styles.link}>Esqueci-me da password</Text>
+            </Pressable>
+          )}
+        </View>
+
+        {/* ✅ Botão/Toggle para alternar */}
+        <View style={styles.switchRow}>
+          <Text style={styles.switchText}>
+            {isSignup ? "Já tens conta?" : "Ainda não tens conta?"}
+          </Text>
+
+          <Pressable onPress={toggleMode} hitSlop={10}>
+            <Text style={styles.switchLink}>
+              {isSignup ? "Fazer login" : "Criar conta"}
+            </Text>
           </Pressable>
         </View>
 
         <Text style={styles.footer}>
-          Ao clicar em continuar, você concorda com os nossos Termos de Serviço e com a Política de Privacidade
+          Ao clicar em continuar, você concorda com os nossos Termos de Serviço e
+          com a Política de Privacidade
         </Text>
       </View>
     </KeyboardAvoidingView>
@@ -138,4 +172,20 @@ const styles = StyleSheet.create({
 
   link: { marginTop: 6, fontSize: 14, fontWeight: "600" },
   footer: { marginTop: 18, fontSize: 12, textAlign: "center", width: 327 },
+
+  switchRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 12,
+  },
+  switchText: {
+    fontSize: 14,
+    opacity: 0.75,
+  },
+  switchLink: {
+    fontSize: 14,
+    fontWeight: "700",
+    textDecorationLine: "underline",
+  },
 });
