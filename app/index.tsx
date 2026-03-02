@@ -9,6 +9,7 @@ export default function Index() {
   useEffect(() => {
     (async () => {
       const token = await getToken();
+      console.log("Token: " + token);
       setDest(token ? "/(tabs)" : "/login");
     })();
   }, []);

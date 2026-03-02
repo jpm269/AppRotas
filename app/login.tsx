@@ -1,3 +1,5 @@
+import { loginRequest } from "@/src/auth/api";
+import { saveToken } from "@/src/auth/session";
 import { router } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
@@ -14,13 +16,13 @@ import {
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-   const [loading, setLoading] = useState(false);
-   const [mode, setMode] = useState<"login" | "signup">("signup");
+  const [loading, setLoading] = useState(false);
+  const [mode, setMode] = useState<"login" | "signup">("signup");
   const isSignup = mode === "signup";
 
-function toggleMode() {
-  setMode((m) => (m === "signup" ? "login" : "signup"));
-}
+  function toggleMode() {
+    setMode((m) => (m === "signup" ? "login" : "signup"));
+  }
 
 
   const emailOk = useMemo(() => {
@@ -32,22 +34,28 @@ function toggleMode() {
   const canSubmit = emailOk && passwordOk;
 
   async function onSubmit() {
-    // if (!emailOk || !passwordOk) {
-    //   Alert.alert("Erro", "Verifica o email e a password (mín. 6 caracteres).");
-    //   return;
-    // }
+    if (!emailOk || !passwordOk) {
+      Alert.alert("Erro", "Verifica o email e a password (mín. 6 caracteres).");
+      return;
+    }
 
-    // try {
-    //   setLoading(true);
-    //   const token = await loginRequest(email.trim(), password);
-    //   await saveToken(token);
-    //   router.replace("/(tabs)");
-    // } catch (e: any) {
-    //   Alert.alert("Login falhou", e?.message ?? "Tenta novamente.");
-    // } finally {
-    //   setLoading(false);
-    // }
-    router.replace("/(tabs)");
+    try {
+      setLoading(true);
+
+      // Se estás em modo signup, isto não devia chamar loginRequest
+      if (isSignup) {
+        Alert.alert("Info", "Signup ainda não implementado.");
+        return;
+      }
+
+      const token = await loginRequest(email.trim(), password);
+      await saveToken(token);
+      router.replace("/(tabs)");
+    } catch (e: any) {
+      Alert.alert("Login falhou", e?.message ?? "Tenta novamente.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   function onForgetPassword() {
