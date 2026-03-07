@@ -28,8 +28,6 @@ export default function Profile() {
               <Ionicons name={item.icon as any} size={30} color="#2B1A12" />
               <Text style={styles.optionText}>{item.title}</Text>
             </View>
-
-            {/* <Ionicons name="chevron-forward" size={20} color="#7A6A5F" /> */}
           </TouchableOpacity>
         ))}
       </View>
