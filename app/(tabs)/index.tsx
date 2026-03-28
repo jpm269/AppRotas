@@ -1,7 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import polyline from "@mapbox/polyline";
-import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, TextInput, View } from "react-native";
+import React, { useRef, useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 
 type Coordinate = {
@@ -35,40 +34,44 @@ export default function Home() {
     }
   }
 
-  function drawEncodedPolyline(encoded: string) {
-    try {
-      const points = polyline.decode(encoded);
+  // function drawEncodedPolyline(encoded: string) {
+  //   try {
+  //     const points = polyline.decode(encoded);
 
-      const coords = points.map(([latitude, longitude]) => ({
-        latitude,
-        longitude,
-      }));
+  //     const coords = points.map(([latitude, longitude]) => ({
+  //       latitude,
+  //       longitude,
+  //     }));
 
-      setRouteCoords(coords);
+  //     setRouteCoords(coords);
 
-      if (coords.length > 0) {
-        mapRef.current?.fitToCoordinates(coords, {
-          edgePadding: {
-            top: 50,
-            right: 50,
-            bottom: 50,
-            left: 50,
-          },
-          animated: true,
-        });
-      }
-    } catch (error) {
-      console.log("Erro ao descodificar polyline:", error);
-    }
-  }
+  //     if (coords.length > 0) {
+  //       mapRef.current?.fitToCoordinates(coords, {
+  //         edgePadding: {
+  //           top: 50,
+  //           right: 50,
+  //           bottom: 50,
+  //           left: 50,
+  //         },
+  //         animated: true,
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log("Erro ao descodificar polyline:", error);
+  //   }
+  // }
 
-  useEffect(() => {
-    const encodedPolyline = "{akkFhxyv@ai@he@YgURj{@";
-    drawEncodedPolyline(encodedPolyline);
-  }, []);
+  // useEffect(() => {
+  //   const encodedPolyline = "{akkFhxyv@ai@he@YgURj{@";
+  //   drawEncodedPolyline(encodedPolyline);
+  // }, []);
 
   return (
     <View style={styles.container}>
+      <View style={styles.titleCard}>
+          <Text style={styles.title}>Pesquisas recentes</Text>
+      </View>
+
       <View style={styles.searchContainer}>
         <Ionicons name="search" size={20} color="#666" />
 
@@ -116,7 +119,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F5F0E8",
-    padding: 20,
+    padding: 30,
+    paddingTop: 50
   },
   map: {
     flex: 1
@@ -131,10 +135,11 @@ const styles = StyleSheet.create({
     marginTop: 17,
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    color: "#fff",
   },
+
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -142,7 +147,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 12,
     height: 50,
-    marginTop: 52,
     borderWidth: 1,
     borderColor: "#ddd",
   },
@@ -150,5 +154,17 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 8,
     fontSize: 16,
+  },
+  titleCard: {
+    backgroundColor: "#9D500C",
+    borderRadius: 8,
+    width: 143.5,
+    height: 34,
+    borderWidth: 2,
+    borderColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    marginBottom: 30,
   },
 });

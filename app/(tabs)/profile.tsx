@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F0E8",
     padding: 30,
-    paddingTop: 100
+    paddingTop: 50
   },
 
   titleCard: {
