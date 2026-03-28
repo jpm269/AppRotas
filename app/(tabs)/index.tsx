@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useRef, useState } from "react";
-import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 
 type Coordinate = {
@@ -151,6 +151,79 @@ export default function Home() {
       <View style={styles.titleCard}>
           <Text style={styles.title}>Mais Populares</Text>
       </View>
+
+      <View>
+        <Text style={styles.categoryTitle}>Arquitetura</Text>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.cardsRow}
+        >
+          <TouchableOpacity style={styles.popularCard}>
+            <Image
+              source={{ uri: 'https://picsum.photos/200/200?1' }}
+              style={styles.cardImage}
+            />
+            <View style={styles.cardTextContainer}>
+              <Text style={styles.cardTitle}>Lisboa, Portugal</Text>
+              <Text style={styles.cardDescription} numberOfLines={4}>
+                Baixa Pombalina, Mosteiro dos Jerónimos, Basílica da Estrela,
+                MAAT, Torre Belém, Casa do Alentejo, Fundação Champalimaud...
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.popularCard}>
+            <Image
+              source={{ uri: 'https://picsum.photos/200/200?2' }}
+              style={styles.cardImage}
+            />
+            <View style={styles.cardTextContainer}>
+              <Text style={styles.cardTitle}>Barcelona, Espanha</Text>
+              <Text style={styles.cardDescription} numberOfLines={4}>
+                Sagrada Família, Casa Batlló, Palau de la Música, Plaça de Rey,
+                Catedral de Barcelona...
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
+
+        <Text style={styles.categoryTitle}>História</Text>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.cardsRow}
+        >
+          <TouchableOpacity style={styles.popularCard}>
+            <Image
+              source={{ uri: 'https://picsum.photos/200/200?3' }}
+              style={styles.cardImage}
+            />
+            <View style={styles.cardTextContainer}>
+              <Text style={styles.cardTitle}>Atenas, Grécia</Text>
+              <Text style={styles.cardDescription} numberOfLines={4}>
+                Acrópole, Parténon, Ágora Antiga, Museu Arqueológico Nacional...
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.popularCard}>
+            <Image
+              source={{ uri: 'https://picsum.photos/200/200?4' }}
+              style={styles.cardImage}
+            />
+            <View style={styles.cardTextContainer}>
+              <Text style={styles.cardTitle}>Berlim, Alemanha</Text>
+              <Text style={styles.cardDescription} numberOfLines={4}>
+                Muro de Berlim, Portão de Brandemburgo, Reichstag, Checkpoint Charlie...
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
+      
     </View>
   );
 }
@@ -204,11 +277,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     alignSelf: "center",
-    marginBottom: 30,
   },
 
   recentContainer: {
     marginBottom: 20,
+    marginTop: 30
   },
 
   chip: {
@@ -234,4 +307,53 @@ const styles = StyleSheet.create({
     color: '#9D500C',
   },
 
+  categoryTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#000',
+    marginBottom: 8,
+    marginTop: 10,
+  },
+
+  cardsRow: {
+    paddingBottom: 8,
+  },
+
+  popularCard: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    width: 230,
+    height: 90,
+    backgroundColor: 'transparent',
+    borderWidth: 2,
+    borderColor: '#000',
+    borderRadius: 10,
+    padding: 8,
+    marginRight: 12,
+  },
+
+  cardImage: {
+    width: 70,
+    height: 70,
+    borderRadius: 4,
+    marginRight: 8,
+  },
+
+  cardTextContainer: {
+    flex: 1,
+  },
+
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#000',
+    marginBottom: 4,
+  },
+
+  cardDescription: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#A55400',
+    lineHeight: 16,
+  },
 });
