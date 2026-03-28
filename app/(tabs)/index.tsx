@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useRef, useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 
 type Coordinate = {
@@ -66,10 +66,46 @@ export default function Home() {
   //   drawEncodedPolyline(encodedPolyline);
   // }, []);
 
+  const [recentSearches, setRecentSearches] = useState([
+    { id: '1', location: 'Lisboa, Portugal', interest: 'Arquitetura' },
+    { id: '2', location: 'New York, USA', interest: 'Desporto' },
+  ]);
+
   return (
     <View style={styles.container}>
       <View style={styles.titleCard}>
           <Text style={styles.title}>Pesquisas recentes</Text>
+      </View>
+
+      <View style={styles.recentContainer}>
+        <FlatList
+          data={recentSearches}
+          horizontal
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <View style={styles.chip}>
+              <Ionicons name="refresh" size={18} color="#333" />
+
+              <View style={{ marginLeft: 8 }}>
+                <Text style={styles.chipTitle}>{item.location}</Text>
+                <Text style={styles.chipSubtitle}>
+                  Interesse: {item.interest}
+                </Text>
+              </View>
+
+              <TouchableOpacity
+                onPress={() =>
+                    setRecentSearches(prev =>
+                      prev.filter(i => i.id !== item.id)
+                    )
+                  }
+              >
+                <Ionicons name="close" size={16} color="#333" />
+              </TouchableOpacity>
+            </View>
+          )}
+        />
       </View>
 
       <View style={styles.searchContainer}>
@@ -167,4 +203,32 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 30,
   },
+
+  recentContainer: {
+    marginTop: 10,
+  },
+
+  chip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    marginRight: 10,
+
+    borderWidth: 2,
+    borderColor: '#000',
+  },
+
+  chipTitle: {
+    fontWeight: 'bold',
+    fontSize: 13,
+  },
+
+  chipSubtitle: {
+    fontSize: 11,
+    color: '#666',
+  },
+
 });
