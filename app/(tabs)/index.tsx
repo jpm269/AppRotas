@@ -85,9 +85,9 @@ export default function Home() {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
             <View style={styles.chip}>
-              <Ionicons name="refresh" size={18} color="#333" />
+              <Ionicons name="refresh" size={25} color="#333" />
 
-              <View style={{ marginLeft: 8 }}>
+              <View style={{marginHorizontal: 6}}>
                 <Text style={styles.chipTitle}>{item.location}</Text>
                 <Text style={styles.chipSubtitle}>
                   Interesse: {item.interest}
@@ -147,6 +147,10 @@ export default function Home() {
           )}
         </MapView>
       </View>
+
+      <View style={styles.titleCard}>
+          <Text style={styles.title}>Mais Populares</Text>
+      </View>
     </View>
   );
 }
@@ -164,11 +168,12 @@ const styles = StyleSheet.create({
    mapContainer: {
     width: "100%",
     height: 240,
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: "#2B1A12",
-    borderRadius: 7,
+    borderRadius: 3,
     overflow: "hidden",
     marginTop: 17,
+    marginBottom: 25,
   },
   title: {
     fontSize: 24,
@@ -182,7 +187,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 12,
     paddingHorizontal: 12,
-    height: 50,
     borderWidth: 1,
     borderColor: "#ddd",
   },
@@ -194,8 +198,7 @@ const styles = StyleSheet.create({
   titleCard: {
     backgroundColor: "#9D500C",
     borderRadius: 8,
-    width: 143.5,
-    height: 34,
+    paddingHorizontal: 5,
     borderWidth: 2,
     borderColor: "#000",
     alignItems: "center",
@@ -205,7 +208,7 @@ const styles = StyleSheet.create({
   },
 
   recentContainer: {
-    marginTop: 10,
+    marginBottom: 20,
   },
 
   chip: {
@@ -213,10 +216,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
     paddingVertical: 8,
-    paddingHorizontal: 12,
+    paddingHorizontal: 6,
     borderRadius: 12,
     marginRight: 10,
-
     borderWidth: 2,
     borderColor: '#000',
   },
@@ -224,11 +226,12 @@ const styles = StyleSheet.create({
   chipTitle: {
     fontWeight: 'bold',
     fontSize: 13,
+    color: '#9D500C'
   },
 
   chipSubtitle: {
     fontSize: 11,
-    color: '#666',
+    color: '#9D500C',
   },
 
 });
